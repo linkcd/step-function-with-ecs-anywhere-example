@@ -61,8 +61,6 @@ In ECS RunTask in Step Functions, override command cannot pass multiple paramete
 
 Incorrect value that passed via override command 
 ```json
-Correct call if we directly use aws cli docker from terminal
-```json
   "Args": [
       "s3 cp x y"
   ]
