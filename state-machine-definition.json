@@ -1,0 +1,60 @@
+{
+  "Comment": "A description of my state machine",
+  "StartAt": "Extract S3 event",
+  "States": {
+    "Extract S3 event": {
+      "Type": "Pass",
+      "Next": "Choice",
+      "ResultPath": "$.s3info",
+      "InputPath": "$.detail.requestParameters",
+      "OutputPath": "$.s3info",
+      "Parameters": {
+        "bucketName.$": "$.bucketName",
+        "fileKey.$": "$.key"
+      }
+    },
+    "Choice": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.fileKey",
+          "StringMatches": "demo*.txt",
+          "Next": "ECS RunTask"
+        }
+      ],
+      "Default": "Fail",
+      "Comment": "Run ECS only when file is in format \"demo*.txt\""
+    },
+    "ECS RunTask": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::ecs:runTask.sync",
+      "Parameters": {
+        "LaunchType": "EXTERNAL",
+        "Cluster": "arn:aws:ecs:eu-west-1:123456789012:cluster/nanopi-ecsanywhere",
+        "TaskDefinition": "arn:aws:ecs:eu-west-1:123456789012:task-definition/s3downloader_task:11",
+        "Overrides": {
+          "ContainerOverrides": [
+            {
+              "Name": "s3downloader",
+              "Environment": [
+                {
+                  "Name": "BUCKET_NAME",
+                  "Value.$": "States.Format('s3://{}', $.bucketName)"
+                },
+                {
+                  "Name": "FILE_KEY",
+                  "Value.$": "$.fileKey"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "Comment": "Download file from s3 to local",
+      "End": true
+    },
+    "Fail": {
+      "Type": "Fail"
+    }
+  }
+}
