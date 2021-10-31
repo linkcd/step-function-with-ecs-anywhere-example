@@ -7,6 +7,9 @@ This is a demo of AWS Step functions and ECS anywhere
 3. Event bridge triggers a step function state machine
 4. State machine triggers a ECS anywhere task to download the file from s3 to local (to do some processing), if file name matches condition
 
+![State machine logic](stepfunctions_graph.png)
+
+
 ## 1. Build a docker image as the ECS anywhere task
 As in this demo, the ecs anywhere is running on a Nanopi, it should be build on the Pi as it is ARM architecture
 ```bash
