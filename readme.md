@@ -10,8 +10,10 @@ This is a demo of AWS Step functions and ECS anywhere
 ## Architecture
 ![Architecture](doc/architecture.png)
 
-## Nano Pi Neo
+## NanoPi Neo2
 ![Architecture](doc/nanopi.jpg)
+
+[NanoPi Neo2](https://wiki.friendlyarm.com/wiki/index.php/NanoPi_NEO2) with LED hat in my home office, running AWS ECS anywhere.
 
 ## 1. Build a docker image as the ECS anywhere task
 As in this demo, the ecs anywhere is running on a Nanopi, it should be build on the Pi as it is ARM architecture
