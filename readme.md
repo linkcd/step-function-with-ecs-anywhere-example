@@ -29,10 +29,10 @@ Then push to public repository so ECS cluster can download (public docker hub or
 ## 2. Setup ECS anywhere and tasks
 - Setup ECS anywhere cluster on Nanopi
 - Create an ECS execution role that has permission to download file from s3
-- Create an ECS task (See file ecs-task-definition.json) that refers to linkcd/s3downloader:arm image
+- Create an ECS task (see [ecs-task-definition.json](ecs-task-definition.json)) that refers to linkcd/s3downloader:arm image
 
 ## 3. Create a step function state machine
-- Create a state machine (see file definition state-machine-definition.json)
+- Create a state machine (see [state-machine-definition.json](state-machine-definition.json))
 - As we need to wait for ecs task finish, step function requires permission as in [here](https://docs.aws.amazon.com/step-functions/latest/dg/ecs-iam.html)
 - Follow [the steps](https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-cloudwatch-events-s3.html) for setting up s3 triggers step functions via cloudtrail and event bridge
 
